@@ -1,0 +1,21 @@
+﻿<Window x:Class="LeagueSound.Views.CreateSoundEvent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:vm="clr-namespace:LeagueSound.ViewModels"
+        mc:Ignorable="d"
+        md:DialogServiceViews.IsRegistered="True"
+        Title="Create Sound Event"
+        Width="200"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        d:DataContext="{d:DesignInstance {x:Type vm:CreateSoundEventViewModel}}">
+    <StackPanel Margin="10,5,10,10">
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Height="25" Margin="0,0,0,10"/>
+        <ComboBox ItemsSource="{Binding GameEvents}" SelectedItem="{Binding GameEvent}" VerticalContentAlignment="Center" Height="25" Margin="0,0,0,10"/>
+        <Button Content="Sound" Height="25" Margin="0,0,0,10" Command="{Binding ShowOpenSoundFileDialogCommand}"/>
+        <Button Content="Create" Height="25" Command="{Binding CreateSoundEventCommand}"/>
+    </StackPanel>
+</Window>

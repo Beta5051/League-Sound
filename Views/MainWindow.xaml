@@ -1,0 +1,69 @@
+﻿<Window x:Class="LeagueSound.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        mc:Ignorable="d"
+        md:DialogServiceViews.IsRegistered="True"
+        Title="League Sound"
+        Height="500"
+        Width="400"
+        ResizeMode="NoResize"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainWindow}">
+    <Grid Margin="10,5,10,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox ItemsSource="{Binding SoundEvents}" SelectedIndex="{Binding SelectedSoundEventIndex}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding}" IsChecked="{Binding Enable}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Column="2">
+            <StackPanel>
+                <Border Height="80"
+                        BorderBrush="DarkGray"
+                        BorderThickness="1">
+                   <Label FontSize="30"
+                          FontWeight="Bold"
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center">
+                       <Label.Style>
+                           <Style TargetType="{x:Type Label}">
+                               <Style.Triggers>
+                                   <DataTrigger Binding="{Binding IsGameOnline}" Value="True">
+                                       <Setter Property="Content" Value="Online"/>
+                                   </DataTrigger>
+                                   <DataTrigger Binding="{Binding IsGameOnline}" Value="False">
+                                       <Setter Property="Content" Value="Offline"/>
+                                   </DataTrigger>
+                               </Style.Triggers>
+                           </Style>
+                       </Label.Style>
+                   </Label>
+                   <Border.Style>
+                       <Style TargetType="{x:Type Border}">
+                           <Style.Triggers>
+                               <DataTrigger Binding="{Binding IsGameOnline}" Value="True">
+                                   <Setter Property="Background" Value="ForestGreen"/>
+                               </DataTrigger>
+                               <DataTrigger Binding="{Binding IsGameOnline}" Value="False">
+                                   <Setter Property="Background" Value="Red"/>
+                               </DataTrigger>
+                           </Style.Triggers>
+                       </Style>
+                   </Border.Style>
+               </Border>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom">
+                <Button Content="Create" Height="25" Margin="0,0,0,10" Command="{Binding ShowCreateSoundEventDialogCommand}"/>
+                <Button Content="Remove" Height="25" Command="{Binding RemoveSelectedSoundEventCommand}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>   
+</Window>
